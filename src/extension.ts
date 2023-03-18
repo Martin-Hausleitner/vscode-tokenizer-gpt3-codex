@@ -1,5 +1,5 @@
-import * as vscode from "vscode";
-import GPT3Tokenizer from "gpt3-tokenizer";
+import * as vscode from 'vscode';
+import GPT3Tokenizer from 'gpt3-tokenizer';
 
 export function activate(context: vscode.ExtensionContext) {
   const statusBar = vscode.window.createStatusBarItem(
@@ -8,26 +8,15 @@ export function activate(context: vscode.ExtensionContext) {
   );
   context.subscriptions.push(statusBar);
 
+  let displayEnabled = true;
+  updateStatusBarItem();
+
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      "vscode-openai-token-display.showTokenCount",
+      'vscode-openai-token-display.toggleTokenCount',
       () => {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) {
-          vscode.window.showInformationMessage(
-            "Kein aktiver Texteditor gefunden."
-          );
-          return;
-        }
-
-        const document = editor.document;
-        const content = document.getText();
-        const tokenizer = new GPT3Tokenizer({ type: "gpt3" });
-        const encoded = tokenizer.encode(content);
-
-        vscode.window.showInformationMessage(
-          `Die aktuelle Datei enthält ${encoded.bpe.length} Token.`
-        );
+        displayEnabled = !displayEnabled;
+        updateStatusBarItem();
       }
     )
   );
@@ -50,21 +39,19 @@ export function activate(context: vscode.ExtensionContext) {
 
   function updateStatusBarItem() {
     const editor = vscode.window.activeTextEditor;
-    if (!editor) {
+    if (!editor || !displayEnabled) {
       statusBar.hide();
       return;
     }
 
     const document = editor.document;
     const content = document.getText();
-    const tokenizer = new GPT3Tokenizer({ type: "gpt3" });
+    const tokenizer = new GPT3Tokenizer({ type: 'gpt3' });
     const encoded = tokenizer.encode(content);
 
-    statusBar.text = `${encoded.bpe.length} Token`;
+    statusBar.text = `${encoded.bpe.length} Tokens`;
     statusBar.show();
   }
-
-  updateStatusBarItem();
 }
 
 export function deactivate() {}

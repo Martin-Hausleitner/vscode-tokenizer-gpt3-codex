@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "vscode-openai-token-display.showTokenCount",
-        "title": "Show Token Count"
+        "command": "vscode-openai-token-display.toggleTokenCount",
+        "title": "Toggle OpenAI Token Display"
       }
     ]
   },

@@ -11,12 +11,15 @@ The `vscode-openai-token-display` extension allows you to monitor the count of O
 ## 🛠️ Installation
 
 1. Open Visual Studio Code
-2. Press `Ctrl+P` (Windows/Linux) or `Cmd+P` (Mac) to open the Quick Open bar.
+2. Press <kbd>Ctrl</kbd>+<kbd>P</kbd> (Windows/Linux) or <kbd>Cmd</kbd>+<kbd>P</kbd> (Mac) to open the Quick Open bar.
 3. Type `ext install vscode-openai-token-display` and press enter.
 
 ## 📖 Usage
 
-Open a document in Visual Studio Code, and the token count will automatically be displayed in the status bar. As you make changes to your document, the token count will update.
+To use the command, you can:
+
+1. Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> (Windows/Linux) or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> (Mac) to open the Command Palette.
+1. Type Toggle OpenAI Token Display and press enter.
 
 ## 👥 Contributing
 
