@@ -3,7 +3,7 @@
 # 🚀 GPT-3 & Codex Tokenizer Counter Statusbar 🎉
 
 🌟 A Visual Studio Code extension that displays the count of
-OpenAI GPT-3 tokens for the current document in the status bar.
+OpenAI GPT-3 or CODEX tokens for the current document in the status bar.
 🎯
 
 ## 📚 Description
