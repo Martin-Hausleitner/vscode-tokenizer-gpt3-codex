@@ -1,3 +1,5 @@
+![GPT-3 Token Counter Statusbar](images/icon.png)
+
 # 🚀 GPT-3 Token Counter Statusbar 🎉
 
 🌟 A Visual Studio Code extension that displays the count of
