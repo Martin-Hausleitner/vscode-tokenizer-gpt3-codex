@@ -1,29 +1,71 @@
 {
-  "name": "vscode-openai-token-display",
-  "displayName": "GPT-3 Token Counter Statusbar",
-  "description": "🌟 A Visual Studio Code extension that displays the count ofOpenAI GPT-3 tokens for the current document in the status bar.🎯",
+  "name": "vscode-tokenizer-gpt3-codex",
+  "displayName": "GPT-3 & Codex Tokenizer",
+  "description": "🚀 GPT-3 & Codex tokenizer - View token count in status bar! 🧠",
   "version": "0.0.1",
-  "publisher": "martin-hausleitner",
+  "publisher": "MartinHausleitner",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Martin-Hausleitner/vscode-openai-token-display"
+    "url": "https://github.com/Martin-Hausleitner/vscode-tokenizer-gpt3-codex"
   },
   "engines": {
     "vscode": "^1.76.0"
   },
   "categories": [
-    "Other"
+    "Machine Learning",
+    "Linters",
+    "Data Science"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "GPT-3",
+    "Codex",
+    "tokenizer",
+    "OpenAI",
+    "status bar",
+    "tokens",
+    "token",
+    "gpt-3-encoder",
+    "count",
+    "AI",
+    "natural language processing",
+    "NLP",
+    "Deep Learning",
+    "vscode extension"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "vscode-openai-token-display.toggleTokenCount",
-        "title": "Toggle OpenAI Token Display"
+        "command": "vscode-tokenizer-gpt3-codex.toggleTokenCount",
+        "title": "Toggle Token Count"
+      },
+      {
+        "command": "vscode-tokenizer-gpt3-codex.changeTokenizerType",
+        "title": "Change Tokenizer Type"
+      },
+      {
+        "command": "vscode-tokenizer-gpt3-codex.toggleTokenizerType",
+        "title": "Toggle Tokenizer Type"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "OpenAI GPT-3 Tokenizer",
+      "properties": {
+        "openaiTokenizer.type": {
+          "type": "string",
+          "enum": [
+            "codex",
+            "gpt3"
+          ],
+          "default": "gpt3",
+          "description": "The type of OpenAI tokenizer to use."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
