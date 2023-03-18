@@ -1,4 +1,4 @@
-# 🚀 vscode-openai-token-display 🎉
+# 🚀 GPT-3 Token Counter Statusbar 🎉
 
 🌟 A Visual Studio Code extension that displays the count of
 OpenAI GPT-3 tokens for the current document in the status bar.
@@ -19,9 +19,11 @@ The `vscode-openai-token-display` extension allows you to monitor the count of O
 To use the command, you can:
 
 1. Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> (Windows/Linux) or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> (Mac) to open the Command Palette.
-1. Type Toggle OpenAI Token Display and press enter.
+1. Type `Toggle OpenAI Token Display` and press <kbd>enter</kbd> .
 
 ## 👥 Contributing
 
 Contributions are always welcome! Feel free to open a pull request, report a bug, or suggest a new feature.
 
+
+by Martin Hausleitner + GPT-4

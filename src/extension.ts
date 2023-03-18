@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
-import GPT3Tokenizer from 'gpt3-tokenizer';
+import * as vscode from "vscode";
+import GPT3Tokenizer from "gpt3-tokenizer";
 
 export function activate(context: vscode.ExtensionContext) {
   const statusBar = vscode.window.createStatusBarItem(
@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'vscode-openai-token-display.toggleTokenCount',
+      "vscode-openai-token-display.toggleTokenCount",
       () => {
         displayEnabled = !displayEnabled;
         updateStatusBarItem();
@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     const document = editor.document;
     const content = document.getText();
-    const tokenizer = new GPT3Tokenizer({ type: 'gpt3' });
+    const tokenizer = new GPT3Tokenizer({ type: "gpt3" });
     const encoded = tokenizer.encode(content);
 
     statusBar.text = `${encoded.bpe.length} Tokens`;

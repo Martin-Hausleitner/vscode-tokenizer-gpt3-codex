@@ -3,6 +3,11 @@
   "displayName": "GPT-3 Token Counter Statusbar",
   "description": "🌟 A Visual Studio Code extension that displays the count ofOpenAI GPT-3 tokens for the current document in the status bar.🎯",
   "version": "0.0.1",
+  "publisher": "martin-hausleitner",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Martin-Hausleitner/vscode-openai-token-display"
+  },
   "engines": {
     "vscode": "^1.76.0"
   },
