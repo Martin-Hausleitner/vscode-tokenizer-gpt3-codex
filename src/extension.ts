@@ -1,5 +1,64 @@
 import * as vscode from "vscode";
-import GPT3Tokenizer from "gpt3-tokenizer";
+import { encoding_for_model, TiktokenModel} from "tiktoken";
+
+const validModels = [
+  "davinci-002",
+    "babbage-002",
+    "text-davinci-003",
+    "text-davinci-002",
+    "text-davinci-001",
+    "text-curie-001",
+    "text-babbage-001",
+    "text-ada-001",
+    "davinci",
+    "curie",
+    "babbage",
+    "ada",
+    "code-davinci-002",
+    "code-davinci-001",
+    "code-cushman-002",
+    "code-cushman-001",
+    "davinci-codex",
+    "cushman-codex",
+    "text-davinci-edit-001",
+    "code-davinci-edit-001",
+    "text-embedding-ada-002",
+    "text-similarity-davinci-001",
+    "text-similarity-curie-001",
+    "text-similarity-babbage-001",
+    "text-similarity-ada-001",
+    "text-search-davinci-doc-001",
+    "text-search-curie-doc-001",
+    "text-search-babbage-doc-001",
+    "text-search-ada-doc-001",
+    "code-search-babbage-code-001",
+    "code-search-ada-code-001",
+    "gpt2",
+    "gpt-3.5-turbo",
+    "gpt-35-turbo",
+    "gpt-3.5-turbo-0301",
+    "gpt-3.5-turbo-0613",
+    "gpt-3.5-turbo-1106",
+    "gpt-3.5-turbo-0125",
+    "gpt-3.5-turbo-16k",
+    "gpt-3.5-turbo-16k-0613",
+    "gpt-3.5-turbo-instruct",
+    "gpt-3.5-turbo-instruct-0914",
+    "gpt-4",
+    "gpt-4-0314",
+    "gpt-4-0613",
+    "gpt-4-32k",
+    "gpt-4-32k-0314",
+    "gpt-4-32k-0613",
+    "gpt-4-turbo",
+    "gpt-4-turbo-2024-04-09",
+    "gpt-4-turbo-preview",
+    "gpt-4-1106-preview",
+    "gpt-4-0125-preview",
+    "gpt-4-vision-preview",
+    "gpt-4o",
+    "gpt-4o-2024-05-13"
+]
 
 export function activate(context: vscode.ExtensionContext) {
   const statusBar = vscode.window.createStatusBarItem(
@@ -7,7 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
     100
   );
   context.subscriptions.push(statusBar);
-  statusBar.command = "vscode-tokenizer-gpt3-codex.toggleTokenizerType"; // Füge Command zum Statusbar-Item hinzu
+  statusBar.command = "vscode-tokenizer-gpt3-codex.changeTokenizerType"; // Füge Command zum Statusbar-Item hinzu
 
   let displayEnabled = true;
   updateStatusBarItem();
@@ -27,7 +86,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "vscode-tokenizer-gpt3-codex.changeTokenizerType",
       async () => {
-        const type = await vscode.window.showQuickPick(["gpt3", "codex"]);
+        const type = await vscode.window.showQuickPick(validModels);
         if (type) {
           const config = vscode.workspace.getConfiguration("openaiTokenizer");
           await config.update("type", type, vscode.ConfigurationTarget.Global);
@@ -45,8 +104,8 @@ export function activate(context: vscode.ExtensionContext) {
       "vscode-tokenizer-gpt3-codex.toggleTokenizerType",
       async () => {
         const config = vscode.workspace.getConfiguration("openaiTokenizer");
-        const currentType = config.get<"gpt3" | "codex">("type") || "gpt3";
-        const newType = currentType === "gpt3" ? "codex" : "gpt3";
+        const currentType = config.get<TiktokenModel>("type") || "gpt-4";
+        const newType = currentType === "gpt-4" ? "gpt-3.5-turbo" : "gpt-4";
         await config.update("type", newType, vscode.ConfigurationTarget.Global);
         updateStatusBarItem();
         vscode.window.showInformationMessage(
@@ -89,12 +148,15 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const config = vscode.workspace.getConfiguration("openaiTokenizer");
-    const type = config.get<"gpt3" | "codex">("type") || "gpt3";
-    const tokenizer = new GPT3Tokenizer({ type });
-
-    const encoded = tokenizer.encode(content);
-
-    statusBar.text = `${encoded.bpe.length} Tokens (${type})`;
+    var type = config.get<TiktokenModel>("type") || "gpt-4";
+    // check if type is valid
+    if (!validModels.includes(type)) {
+      type = "gpt-4";
+    }
+    const encoder = encoding_for_model(type)
+    const tokens = encoder.encode(content);
+    statusBar.text = `${tokens.length} Tokens (${type})`;
+    encoder.free();
     statusBar.show();
   }
 }
