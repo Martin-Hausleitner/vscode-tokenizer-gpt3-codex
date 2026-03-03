@@ -57,8 +57,20 @@ const validModels = [
     "gpt-4-0125-preview",
     "gpt-4-vision-preview",
     "gpt-4o",
-    "gpt-4o-2024-05-13"
-]
+    "gpt-4o-2024-05-13",
+    "o1",
+    "o1-preview",
+    "o1-mini",
+    "o3",
+    "o3-mini",
+    "o4-mini",
+    "gpt-4.1",
+    "gpt-4.1-mini",
+    "gpt-4.1-nano",
+    "gpt-5",
+    "gpt-5-mini",
+    "gpt-5-nano"
+];
 
 export function activate(context: vscode.ExtensionContext) {
   const statusBar = vscode.window.createStatusBarItem(
@@ -104,8 +116,8 @@ export function activate(context: vscode.ExtensionContext) {
       "vscode-tokenizer-gpt3-codex.toggleTokenizerType",
       async () => {
         const config = vscode.workspace.getConfiguration("openaiTokenizer");
-        const currentType = config.get<TiktokenModel>("type") || "gpt-4";
-        const newType = currentType === "gpt-4" ? "gpt-3.5-turbo" : "gpt-4";
+        const currentType = config.get<TiktokenModel>("type") || "gpt-5";
+        const newType = currentType === "gpt-5" ? "gpt-4" : "gpt-5";
         await config.update("type", newType, vscode.ConfigurationTarget.Global);
         updateStatusBarItem();
         vscode.window.showInformationMessage(
@@ -148,12 +160,12 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const config = vscode.workspace.getConfiguration("openaiTokenizer");
-    var type = config.get<TiktokenModel>("type") || "gpt-4";
+    var type = config.get<TiktokenModel>("type") || "gpt-5";
     // check if type is valid
     if (!validModels.includes(type)) {
-      type = "gpt-4";
+      type = "gpt-5";
     }
-    const encoder = encoding_for_model(type)
+    const encoder = encoding_for_model(type);
     const tokens = encoder.encode(content);
     statusBar.text = `${tokens.length} Tokens (${type})`;
     encoder.free();
